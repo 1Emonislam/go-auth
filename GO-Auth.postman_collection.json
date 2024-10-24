@@ -1,0 +1,535 @@
+{
+	"info": {
+		"_postman_id": "435e874a-c839-47f1-870a-11402cbefd4e",
+		"name": "GO-Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29232884"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "OTP",
+							"item": [
+								{
+									"name": "/resend-otp-request/send",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"user@gmail.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_V1}}/users/resend-otp-request/send",
+											"host": [
+												"{{BASE_V1}}"
+											],
+											"path": [
+												"users",
+												"resend-otp-request",
+												"send"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/otp-verify",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"",
+													"const responseBodyp = pm.response.json();",
+													"",
+													"if(responseBodyp){",
+													"const userId =  responseBodyp?.data?._id;",
+													"const userToken =responseBodyp?.data?.token",
+													"pm.environment.set(\"userId\", userId);",
+													"pm.environment.set(\"userToken\", userToken);",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"393085\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_V1}}/users/otp-verify",
+											"host": [
+												"{{BASE_V1}}"
+											],
+											"path": [
+												"users",
+												"otp-verify"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Google",
+							"item": [
+								{
+									"name": "/auth/google/login",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_V1}}/users/auth/google/login",
+											"host": [
+												"{{BASE_V1}}"
+											],
+											"path": [
+												"users",
+												"auth",
+												"google",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/auth/google/callback",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_V1}}/users/auth/google/callback?code=4%2F0AVG7fiSrRC_pYIh4l8kT1mGJAuKW5LdvS5frUp8RXuSMEjaAJMkOyR6ywlMBbXPon-oxAw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent",
+											"host": [
+												"{{BASE_V1}}"
+											],
+											"path": [
+												"users",
+												"auth",
+												"google",
+												"callback"
+											],
+											"query": [
+												{
+													"key": "code",
+													"value": "4%2F0AVG7fiSrRC_pYIh4l8kT1mGJAuKW5LdvS5frUp8RXuSMEjaAJMkOyR6ywlMBbXPon-oxAw"
+												},
+												{
+													"key": "scope",
+													"value": "email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email"
+												},
+												{
+													"key": "authuser",
+													"value": "0"
+												},
+												{
+													"key": "prompt",
+													"value": "consent"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "/auth/register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"emon@gmail.com\",\n    \"password\":\"11111111\",\n    \"firstName\":\"Emon\",\n    \"lastName\":\"Islam\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/auth/register",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/auth/login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"const responseBodyp = pm.response.json();",
+											"",
+											"if(responseBodyp){",
+											"const _id =  responseBodyp?.data?._id;",
+											"const token =responseBodyp?.data?.token",
+											"pm.environment.set(\"userToken\", token);",
+											"pm.environment.set(\"adminToken\", token);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"emon@gmail.com\",\n    \"password\":\"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/auth/login",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/otp-verify",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"const responseBodyp = pm.response.json();",
+											"",
+											"if(responseBodyp){",
+											"const userId =  responseBodyp?.data?._id;",
+											"const userToken =responseBodyp?.data?.token",
+											"pm.environment.set(\"userId\", userId);",
+											"pm.environment.set(\"userToken\", userToken);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\":\"734222\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/otp-verify",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"otp-verify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/forgot-password/send",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{userToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"user1@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/forgot-password/send",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"forgot-password",
+										"send"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/reset-password/verify",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{userToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\":\"233814\",\n    \"password\":\"12345678\",\n    \"password2\":\"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/reset-password/verify",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"reset-password",
+										"verify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/change-password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{userToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"oldPassword\":\"11111111\",\n    \"password\":\"12345678\",\n    \"password2\":\"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/change-password",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/email-verify",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{userToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\":\"386402\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/email-verify",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"email-verify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/auth/logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"const responseBodyp = pm.response.json();",
+											"",
+											"if(responseBodyp){",
+											"const userId =  responseBodyp?.data?._id;",
+											"const userToken =responseBodyp?.data?.token",
+											"pm.environment.set(\"userId\", userId);",
+											"pm.environment.set(\"userToken\", userToken);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{userToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\":\"{{userId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_V1}}/users/auth/logout",
+									"host": [
+										"{{BASE_V1}}"
+									],
+									"path": [
+										"users",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_V1",
+			"value": "localhost:8000/api/v1.0",
+			"type": "string"
+		}
+	]
+}
