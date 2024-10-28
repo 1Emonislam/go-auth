@@ -119,7 +119,7 @@ func (h *authHandler) Signup(c *gin.Context) {
 		return
 	}
 
-	utils.ResponseSuccess(c, "User created successfully", gin.H{"token": token})
+	utils.ResponseSuccess(c, "User created successfully", gin.H{"token": token,"is_email_verified": user.IsEmailVerified})
 }
 
 // Login handles user login
@@ -175,7 +175,7 @@ func (h *authHandler) Login(c *gin.Context) {
 		return
 	}
 
-	utils.ResponseSuccess(c, "Login successful", gin.H{"token": token})
+	utils.ResponseSuccess(c, "Login successful", gin.H{"token": token, "is_email_verified": user.IsEmailVerified})
 }
 
 // SendOTP handles sending an OTP to the user's email
@@ -251,7 +251,7 @@ func (h *authHandler) VerifyOTP(c *gin.Context) {
 		return
 	}
 
-	utils.ResponseSuccess(c, "OTP verified successfully", gin.H{"token": token})
+	utils.ResponseSuccess(c, "OTP verified successfully", gin.H{"token": token,"is_email_verified": user.IsEmailVerified})
 }
 
 // ResetPasswordVerify handles password resetting
@@ -300,7 +300,7 @@ func (h *authHandler) ResetPasswordVerify(c *gin.Context) {
 		return
 	}
 
-	utils.ResponseSuccess(c, "Password reset successfully", gin.H{"token": token})
+	utils.ResponseSuccess(c, "Password reset successfully", gin.H{"token": token,"is_email_verified": user.IsEmailVerified})
 }
 
 // ForgotPasswordSend handles sending OTP for password reset
@@ -370,7 +370,6 @@ func (h *authHandler) ChangePassword(c *gin.Context) {
 		return
 	}
 	currentUser.Password = hashedPassword
-
 	if err := h.userRepo.UpdateUser(currentUser); err != nil {
 		utils.ResponseError(c, http.StatusInternalServerError, "Could not update password")
 		return
@@ -382,7 +381,7 @@ func (h *authHandler) ChangePassword(c *gin.Context) {
 		return
 	}
 
-	utils.ResponseSuccess(c, "Password changed successfully", gin.H{"token": token})
+	utils.ResponseSuccess(c, "Password changed successfully", gin.H{"token": token,"is_email_verified": currentUser.IsEmailVerified})
 }
 func (h *authHandler) Logout(c *gin.Context) {
 	// Check if redisService is nil
@@ -494,7 +493,7 @@ func (h *authHandler) GoogleCallback(c *gin.Context) {
 			return
 		}
 
-		utils.ResponseSuccess(c, "User registration successful", gin.H{"token": tokenString})
+		utils.ResponseSuccess(c, "User registration successful", gin.H{"token": tokenString,"is_email_verified": newUser.IsEmailVerified})
 		return
 	}
 
@@ -516,5 +515,5 @@ func (h *authHandler) GoogleCallback(c *gin.Context) {
 	}
 
 	// Send success response after updating the user
-	utils.ResponseSuccess(c, "User logged in successfully", gin.H{"token": tokenString})
+	utils.ResponseSuccess(c, "User logged in successfully", gin.H{"token": tokenString,"is_email_verified": existingUser.IsEmailVerified})
 }
