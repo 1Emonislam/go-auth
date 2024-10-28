@@ -108,7 +108,7 @@ func (h *authHandler) Signup(c *gin.Context) {
 		}
 
 		// Inform the user to check their email for the OTP
-		utils.ResponseSuccess(c, "User registration successfully. Please check your email for the OTP.", nil)
+		utils.ResponseSuccess(c, "User registration successfully. Please check your email for the OTP.", gin.H{"is_email_verified": user.IsEmailVerified})
 		return
 	}
 
@@ -163,7 +163,7 @@ func (h *authHandler) Login(c *gin.Context) {
 			return
 		}
 
-		utils.ResponseSuccess(c, "Please verify your email with the OTP sent.", nil)
+		utils.ResponseSuccess(c, "Please verify your email with the OTP sent.", gin.H{"is_email_verified": user.IsEmailVerified})
 		return
 	}
 
@@ -177,6 +177,7 @@ func (h *authHandler) Login(c *gin.Context) {
 
 	utils.ResponseSuccess(c, "Login successful", gin.H{"token": token, "is_email_verified": user.IsEmailVerified})
 }
+
 
 // SendOTP handles sending an OTP to the user's email
 func (h *authHandler) SendOTP(c *gin.Context) {
