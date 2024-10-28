@@ -38,9 +38,9 @@ type GoogleUser struct {
 // User represents a user in the system.
 type User struct {
 	Model
-	FirstName       string `json:"firstName" gorm:"default:null"`
-	LastName        string `json:"lastName" gorm:"default:null"`
-	Avatar          string `json:"avatar" gorm:"default:https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"`
+	FirstName       string `json:"firstName" gorm:"type:varchar(255);default:''"`
+	LastName        string `json:"lastName" gorm:"type:varchar(255);default:''"`
+	Avatar          string `json:"avatar" gorm:"default:'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'"`
 	Email           string `json:"email" gorm:"unique;not null" validate:"required,email"`
 	Password        string `json:"password" gorm:"not null" validate:"required,min=8"`
 	Role            string `json:"role" gorm:"not null" validate:"required"`
