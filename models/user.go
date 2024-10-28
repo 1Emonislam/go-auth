@@ -103,9 +103,9 @@ func GenerateSalt(length int) (string, error) {
 type SignupRequest struct {
 	Email     string `json:"email" binding:"required,email"`
 	Password  string `json:"password" binding:"required,min=8"`
-	FirstName string `json:"first_name,omitempty"` // optional field
-	LastName  string `json:"last_name,omitempty"`  // optional field
-	Avatar    string `json:"avatar,omitempty"`     // optional field
+	FirstName string `json:"firstName,omitempty"` // optional field
+	LastName  string `json:"lastName,omitempty"`  // optional field
+	Avatar    string `json:"avatar,omitempty"`    // optional field
 }
 
 // LoginRequest represents the structure for user login
