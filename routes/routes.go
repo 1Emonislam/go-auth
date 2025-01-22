@@ -10,6 +10,7 @@ import (
 )
 
 func RegisterRoutes(router *gin.Engine) {
+
 	// Create a new instance of UserRepository
 	// Assuming you already have an instance of UserRepository
 	userRepo := repository.NewUserRepository()
@@ -34,6 +35,7 @@ func RegisterRoutes(router *gin.Engine) {
 		public.POST("/users/reset-password/verify", authHandler.ResetPasswordVerify)
 		public.POST("/users/change-password", authHandler.ChangePassword)
 		public.POST("/users/auth/logout", middleware.AuthMiddleware(), authHandler.Logout)
+		public.POST("/img-gen", handlers.ImageHandler)
 	}
 
 	// Routes accessible by authenticated admin users

@@ -32,6 +32,7 @@ func main() {
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		AllowCredentials: true,
 	}))
+	router.Static("/uploads", "./uploads")
 
 	routing.RegisterRoutes(router)
 
